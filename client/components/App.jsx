@@ -2,20 +2,43 @@ import React from 'react'
 
 import { callCountryByName } from '../api'
 
+const countriesAPI = 'https://restcountries.eu/rest/v2/name'
+
+
 class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      countries: ''
+      loaded: false,
+      countries: []
     }
   }
   componentDidMount() {
-    callCountryByName('New Zealand')
+    // this.loadCountry()
+    fetch(countriesAPI + '/' + 'Australia')
+    .then(response =>  response.json())
+    .then(json => this.setState({loaded: true, countries: json}))
   }
 
+  // loadCountry = () => {
+  //   this.setState({
+  //     countries: callCountryByName('New Zealand') 
+  //   })
+  // }
+
   render(){
+    console.log(this.state)
+    let content = ''
+    if (this.state.loaded === true) {
+      content = this.state.countries.map(country => country.name)
+    } else {
+      content = 'loading'
+    }
     return (
-      <h1>React development has begun!</h1>
+      <div>
+        <h1>React development has begun!</h1>
+        <p>{content}</p>
+      </div>
     )
   }
 }
