@@ -11,6 +11,12 @@ export class CountryInput extends React.Component {
         }
     }
 
+    handleKeyDown = (event) => {
+        if (event.keyCode == 13) {
+            this.handleClick()
+        }
+    }
+
     handleChange = (event) => {
         this.setState({
             input: event.target.value
@@ -20,7 +26,7 @@ export class CountryInput extends React.Component {
     handleClick = (event) => {
         event.preventDefault()
         callCountryByName(this.state.input)
-        .then(this.props.passAround(this.state.input))
+        .then(this.props.passedFunction(this.state.input))
     }
 
     render() {

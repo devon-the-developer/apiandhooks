@@ -32,15 +32,17 @@ class App extends React.Component {
   render(){
     let content = ''
     if (this.state.loaded === true) {
-      content = this.state.countries.map(country => country.name)
+      content = this.state.countries.map((country,index) => <li key={index}>{country.name}</li>)
     } else {
       content = 'loading'
     }
     return (
       <div>
-        <h1>React development has begun!</h1>
-        <CountryInput passAround={this.loadCountry} />
-        <p>{content}</p>
+        <h1>Search A Country</h1>
+        <CountryInput passedFunction={this.loadCountry} />
+        <ul>
+          {content}
+        </ul>
       </div>
     )
   }
