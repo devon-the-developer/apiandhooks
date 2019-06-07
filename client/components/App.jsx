@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { callCountryByName } from '../api'
+import { callCountryByName, fetchCountryByName } from '../api'
 
 const countriesAPI = 'https://restcountries.eu/rest/v2/name'
 
@@ -14,20 +14,21 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    // this.loadCountry()
-    fetch(countriesAPI + '/' + 'Australia')
-    .then(response =>  response.json())
-    .then(json => this.setState({loaded: true, countries: json}))
+    this.loadCountry()
   }
 
-  // loadCountry = () => {
-  //   this.setState({
-  //     countries: callCountryByName('New Zealand') 
-  //   })
-  // }
+  loadCountry = () => {
+    callCountryByName('New Zealand')
+    .then(data => {
+        this.setState({
+        loaded: true,
+        countries: data
+        })
+      }
+    )
+  }
 
   render(){
-    console.log(this.state)
     let content = ''
     if (this.state.loaded === true) {
       content = this.state.countries.map(country => country.name)
