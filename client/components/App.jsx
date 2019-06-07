@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { callCountryByName, fetchCountryByName } from '../api'
+import { CountryInput } from './CountryInput'
+import { callCountryByName } from '../api'
 
 const countriesAPI = 'https://restcountries.eu/rest/v2/name'
 
@@ -14,11 +15,11 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.loadCountry()
+    this.loadCountry('New Zealand')
   }
 
-  loadCountry = () => {
-    callCountryByName('New Zealand')
+  loadCountry = (nameOfCountry) => {
+    callCountryByName(nameOfCountry)
     .then(data => {
         this.setState({
         loaded: true,
@@ -38,6 +39,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>React development has begun!</h1>
+        <CountryInput passAround={this.loadCountry} />
         <p>{content}</p>
       </div>
     )
