@@ -31,11 +31,24 @@ class App extends React.Component {
 
   render(){
     let content = ''
-    if (this.state.loaded === true) {
-      content = this.state.countries.map((country,index) => <li key={index}>{country.name}</li>)
+    if (this.state.loaded === true ) {
+      if (this.state.countries.length == 1) {
+        content = this.state.countries.map((country,index) => <p key={index}>
+          {country.name}
+          <br />
+          Region: {country.region}
+          <br />
+          Population: {country.population}
+          <br /> 
+          Capital: {country.capital}
+        </p>)
+      } else {
+        content = this.state.countries.map((country,index) => <li key={index}>{country.name}</li>)
+      }
     } else {
       content = 'loading'
     }
+    console.log('this.state.countries: ', this.state.countries)
     return (
       <div>
         <h1>Search A Country</h1>
