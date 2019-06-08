@@ -1,47 +1,39 @@
-import React, {Fragment} from 'react'
+import React, { Fragment, useState } from 'react'
 
 import { callCountryByName } from '../api'
 
+export function CountryInput (props) {
+    const [searchValue, setSearchValue] = useState(null)
 
-export class CountryInput extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            input: ''
-        }
-    }
-
-    handleKeyDown = (event) => {
+    const handleKeyDown = (event) => {
         if (event.keyCode == 13) {
-            this.handleClick()
+            handleClick(event)
         }
     }
 
-    handleChange = (event) => {
-        this.setState({
-            input: event.target.value
-        })
+    const handleChange = (event) => {
+        setSearchValue(event.target.value)
     }
 
-    handleClick = (event) => {
+    const handleClick = (event) => {
         event.preventDefault()
-        callCountryByName(this.state.input)
-        .then(this.props.passedFunction(this.state.input))
+        callCountryByName(searchValue)
+        .then(props.passedFunction(searchValue))
     }
+    
 
-    render() {
-        return (
-            <Fragment>
-                <form>
-                    <input type='text'
-                        placeholder='Type Country Here'
-                        onChange={this.handleChange}
-                     />
-                     <button onClick={this.handleClick}>
-                         Submit
-                    </button>
-                </form>
-            </Fragment>
-        )
-    }
+    return (
+        <Fragment>
+            <form>
+                <input type='text'
+                    placeholder='Type Country Here'
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                />
+                <button onClick={handleClick}>
+                    Submit
+                </button>
+            </form>
+        </Fragment>
+    )
 }

@@ -3,8 +3,6 @@ import React from 'react'
 import { CountryInput } from './CountryInput'
 import { callCountryByName } from '../api'
 
-const countriesAPI = 'https://restcountries.eu/rest/v2/name'
-
 
 class App extends React.Component {
   constructor(props){
