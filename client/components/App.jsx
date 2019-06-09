@@ -35,9 +35,16 @@ export default function App() {
   const loadCountry = (nameOfCountry) => {
     callCountryByName(nameOfCountry)
     .then(data => {
-        setLoaded(true)
-        setCountries(data)
+        const exactCountry = data.filter(country => country.name === nameOfCountry)
+        if (newarray.length === 1) {
+          setLoaded(true)
+          setCountries(exactCountry)
+        } else {
+          setLoaded(true)
+          setCountries(data)
+        }
     })
+    
   }
 
   return (
